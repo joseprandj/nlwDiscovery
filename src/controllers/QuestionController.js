@@ -2,7 +2,7 @@ const Database = require('../db/config')
 
 module.exports = {
     async index(req, res){
-        const db =  await Database()
+        const db = await Database()
         const roomId = req.params.room
         const questionId = req.params.question
         const action = req.params.action
@@ -15,19 +15,18 @@ module.exports = {
 
                 await db.run(`DELETE FROM questions WHERE id = ${questionId}`)
 
-            } else if(action = "check"){
+            }else if(action == "check"){
 
                 await db.run(`UPDATE questions SET read = 1 WHERE id = ${questionId}`)
 
             }
             res.redirect(`/room/${roomId}`)
-        } else {
+        } else{
             res.render('passincorrect', {roomId: roomId})
         }
 
 
     },
-
     
     async create(req, res){
         const db = await Database()
@@ -38,7 +37,7 @@ module.exports = {
             title,
             room,
             read
-        ) VALUES(
+        )VALUES(
             "${question}",
             ${roomId},
             0

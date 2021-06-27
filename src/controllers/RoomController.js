@@ -8,14 +8,15 @@ module.exports = {
         let isRoom = true
         while(isRoom){
             // Gera o número da Sala
-            for(i=0; i<6; i++){
-                i == 0 ? roomId = Math.floor(Math.random()*10).toString() : 
-                roomId += Math.floor(Math.random()*10).toString()
+            for(var i = 0; i < 6; i++){
+                i == 0 ? roomId = Math.floor(Math.random() * 10).toString() : 
+                roomId += Math.floor(Math.random() * 10).toString()
             }
 
             // verificar se esse número já existe
             const roomsExistIds = await db.all(`SELECT id FROM rooms`)
-            isRoom = roomsExistIds.some(roomsExistId => roomsExistId === roomId)
+            isRoom = roomsExistIds.some(roomExistId => roomExistId === roomId)
+
             if(!isRoom){
                 // Inseri a sala no banco
                 await db.run(`INSERT INTO rooms (
@@ -40,7 +41,7 @@ module.exports = {
         const questionsRead = await db.all(`SELECT * FROM questions WHERE room = ${roomId} and read = 1`)
         let isNoQuestions
 
-        if(questions.length == 0){
+        if(questions.length ==0){
             if(questionsRead.length == 0){
                 isNoQuestions = true
             }
