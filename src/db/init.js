@@ -9,7 +9,7 @@ const initDb = {
             pass TEXT
         )`);
 
-        await db.exec(`CREATE TABLE questions(
+        await db.exec(`CREATE TABLE questions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT,
             read INT,
